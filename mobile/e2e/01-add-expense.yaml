@@ -1,0 +1,22 @@
+# Додати витрату вручну (нумпад) → вона в операціях і в огляді
+appId: ua.klymenko.money
+---
+- launchApp
+- assertVisible: "можна сьогодні"
+- tapOn: "+ витрата"
+- tapOn:
+    id: "key-1"
+- tapOn:
+    id: "key-2"
+- tapOn:
+    id: "key-3"
+- assertVisible: "123 ₴"
+- tapOn: "перекуси й напої"
+- scrollUntilVisible:
+    element: "зберегти"
+- tapOn: "зберегти"
+- tapOn: "операції"
+- assertVisible: ".*перекуси й напої.*"
+- assertVisible: ".*123.*"
+- tapOn: "огляд"
+- assertVisible: ".*123.*Перекуси й напої.*"

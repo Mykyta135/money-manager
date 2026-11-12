@@ -1,0 +1,15 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      // спільний код з веб-версії (схема БД, категорії, розстрочки, бюджет, клієнт моно)
+      "@/*": ["../src/*"],
+      "@m/*": ["./src/*"],
+      // одна копія drizzle для спільної схеми й мобільних запитів (див. metro.config.js)
+      "drizzle-orm": ["./node_modules/drizzle-orm"],
+      "drizzle-orm/*": ["./node_modules/drizzle-orm/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+}

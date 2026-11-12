@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "money": {
+      "command": "npx",
+      "args": ["--no-install", "tsx", "scripts/mcp-server.ts"]
+    },
+    "silpo": {
+      "type": "http",
+      "url": "https://mcp.silpo.ua/mcp"
+    }
+  }
+}

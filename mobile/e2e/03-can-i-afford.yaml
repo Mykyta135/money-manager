@@ -1,0 +1,13 @@
+# «Чи можу собі» нічого не зберігає, лише показує вердикт
+appId: ua.klymenko.money
+---
+- launchApp
+- tapOn: "чи можу собі"
+- repeat:
+    times: 6
+    commands:
+      - tapOn:
+          id: "key-9"
+- assertVisible: ".*ні — це більше.*"
+- tapOn: "закрити"
+- assertVisible: "можна сьогодні"

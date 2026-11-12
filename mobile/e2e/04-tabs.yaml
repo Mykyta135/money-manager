@@ -1,0 +1,13 @@
+# Усі вкладки відкриваються без падінь
+appId: ua.klymenko.money
+---
+- launchApp
+- tapOn: "платежі"
+- assertVisible: "лишилось заплатити"
+- tapOn: "операції"
+- assertVisible:
+    id: "search"
+- tapOn: "ще"
+- assertVisible: "банки"
+- tapOn: "сьогодні"
+- assertVisible: "можна сьогодні"

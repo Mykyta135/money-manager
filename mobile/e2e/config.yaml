@@ -1,0 +1,13 @@
+# Порядок важливий: спершу імпорт даних, далі сценарії, що на них спираються
+flows:
+  - "*.yaml"
+executionOrder:
+  continueOnFailure: false
+  flowsOrder:
+    - 00-import
+    - 01-add-expense
+    - 02-bank-push
+    - 03-can-i-afford
+    - 04-tabs
+    - 05-review
+    - 06-undo

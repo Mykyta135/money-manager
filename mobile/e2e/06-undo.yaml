@@ -1,0 +1,16 @@
+# Тост «скасувати» прибирає щойно додану витрату
+appId: ua.klymenko.money
+---
+- launchApp
+- tapOn: "\\+ витрата"
+- tapOn:
+    id: "key-7"
+- tapOn:
+    id: "key-7"
+- tapOn:
+    id: "key-7"
+- tapOn: "зберегти"
+- assertVisible: ".*777.*"
+- tapOn: "скасувати"
+- tapOn: "операції"
+- assertNotVisible: ".*−777.*"

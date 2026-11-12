@@ -1,0 +1,13 @@
+# Огляд: «все ок» прибирає чергу на перевірку
+appId: ua.klymenko.money
+---
+- launchApp
+- tapOn: "огляд"
+- assertVisible: "на перевірку.*"
+- scrollUntilVisible:
+    element: "все ок"
+- tapOn: "все ок"
+- scrollUntilVisible:
+    element: "усе переглянуто"
+    direction: UP
+- assertVisible: "усе переглянуто"

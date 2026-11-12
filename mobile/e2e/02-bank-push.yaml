@@ -1,0 +1,14 @@
+# Пуш банку → операція з'являється одразу
+appId: ua.klymenko.money
+---
+- launchApp
+- tapOn: "ще"
+- scrollUntilVisible:
+    element: "для розробника"
+- tapOn: "для розробника"
+- scrollUntilVisible:
+    element: "тест пушу"
+- tapOn: "тест пушу"
+- assertVisible: "оброблено пушів: 1"
+- tapOn: "операції"
+- assertVisible: "Сімі маркет"

@@ -1,0 +1,29 @@
+# Імпорт бази з Mac (потрібен `npm run dev:lan` і змінні MAC_URL, TOKEN)
+appId: ua.klymenko.money
+---
+- launchApp:
+    clearState: true
+- tapOn: "ще"
+- scrollUntilVisible:
+    element: "для розробника"
+- tapOn: "для розробника"
+- scrollUntilVisible:
+    element:
+      id: "mac-url"
+- tapOn:
+    id: "mac-url"
+- inputText: ${MAC_URL}
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: "export-token"
+- tapOn:
+    id: "export-token"
+- inputText: ${TOKEN}
+- hideKeyboard
+- scrollUntilVisible:
+    element: "імпортувати"
+- tapOn: "імпортувати"
+- extendedWaitUntil:
+    visible: "операцій [0-9]+, розстрочок [0-9]+.*"
+    timeout: 30000
