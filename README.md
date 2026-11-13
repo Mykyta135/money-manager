@@ -4,6 +4,8 @@
 
 Stack: Next.js 16 + Drizzle + better-sqlite3 + Recharts, Expo / React Native, MCP SDK, Vitest (81 unit tests). My data, bank files, budget seeds and signing keys are not in this repo. The rest of this README is in Ukrainian.
 
+> **About the git history.** Built in November 2026 for my own use and published as a single commit, so there is no earlier history here.
+
 ---
 
 # Мої гроші
