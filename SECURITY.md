@@ -9,7 +9,7 @@ Money manager keeps my own finances in a local SQLite file. Before making the re
 | Area | Problem | Fix |
 |---|---|---|
 | Deep link | Any app or web page could open `money://sync` and make the phone upload the whole finance DB to any URL, or overwrite data from one, with no prompt | Only http(s) addresses on the local network, no credentials in the URL, and nothing runs until I tap a button showing the target host; unit-tested |
-| Personal data | My own masked card numbers, card tails and a bank account number sat in comments, tests and one categorisation rule | Replaced with fake values in every commit (history rewritten); the one real rule now comes from `PERSONAL_CATEGORY_RULES` in a local env file; unit-tested |
+| Personal data | My own masked card numbers, card tails and a bank account number sat in comments, tests and one categorisation rule | Replaced with fake values throughout the branch history (rewritten; GitHub may serve the old commits by SHA until it garbage-collects them); the one real rule now comes from `PERSONAL_CATEGORY_RULES` in a local env file; unit-tested |
 
 No API keys or tokens were found in the code or history.
 
