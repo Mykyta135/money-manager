@@ -45,7 +45,6 @@ const OPERATION_KEYWORDS: [RegExp, string][] = [
   [/pumb direct|^(щомісячний )?платіж |^повернення платежу/i, "Платежі по кредитах"],
   [/^розстрочка на картку|кредит до завтра|^погашення кредит/i, "Позики"],
   [/видача готівки|зняття готівки/i, "Готівка"],
-  [/555555\*{4}1234/, "Обіди на роботі"], // поповнення картки, з якої замовляю обіди в офісі
   // Магазин біля дому (бутерброди, бургери, енергетики, вода, насіння, кава) — важливіше за MCC продуктового
   [/\bsimi\b|simi ?m|sim ?23|сімі/i, "Перекуси й напої"],
   [/відсот|процент|комісі|перевищення кредитного ліміту/i, "Комісії та відсотки"],
@@ -75,9 +74,42 @@ const MERCHANT_KEYWORDS: [RegExp, string][] = [
 
 const TRANSFER = /переказ|поповнення|зарахування|перерахування|p2p/i;
 
+/**
+ * Особисті правила (номери власних карток тощо) не лежать у git: JSON-масив
+ * `[{"pattern": "<regex>", "category": "<категорія>"}]` у змінній оточення —
+ * PERSONAL_CATEGORY_RULES для веба й скриптів (.env.local),
+ * EXPO_PUBLIC_PERSONAL_CATEGORY_RULES для телефона (mobile/.env). Мають пріоритет
+ * над усіма вбудованими правилами. Зіпсований JSON або regex просто ігнорується.
+ */
+let personalCache: { raw: string | undefined; rules: [RegExp, string][] } | undefined;
+
+export function personalRules(): [RegExp, string][] {
+  const raw = process.env.EXPO_PUBLIC_PERSONAL_CATEGORY_RULES ?? process.env.PERSONAL_CATEGORY_RULES;
+  if (personalCache && personalCache.raw === raw) return personalCache.rules;
+  let rules: [RegExp, string][] = [];
+  try {
+    const parsed: unknown = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(parsed)) {
+      rules = parsed.flatMap((r): [RegExp, string][] => {
+        if (typeof r?.pattern !== "string" || typeof r?.category !== "string") return [];
+        try {
+          return [[new RegExp(r.pattern, "i"), r.category]];
+        } catch {
+          return [];
+        }
+      });
+    }
+  } catch {
+    rules = [];
+  }
+  personalCache = { raw, rules };
+  return rules;
+}
+
 export function categorize(mcc: number | null | undefined, description: string): string {
   const text = description.toLowerCase();
   return (
+    personalRules().find(([re]) => re.test(text))?.[1] ??
     OPERATION_KEYWORDS.find(([re]) => re.test(text))?.[1] ??
     categoryFromMcc(mcc) ??
     (TRANSFER.test(text) ? "Перекази" : null) ??
